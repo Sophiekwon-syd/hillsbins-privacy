@@ -15,7 +15,6 @@ permissions:
   id-token: write
 
 # Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -32,10 +31,9 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: 'npm'
+          # cache: 'npm' is removed to allow build without existing package-lock.json
 
       - name: Install dependencies
-        # Using npm install instead of ci just in case package-lock.json is missing or out of sync
         run: npm install
 
       - name: Build
